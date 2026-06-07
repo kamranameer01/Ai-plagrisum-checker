@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Plagiarism Checker | PlagiGuard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="container header-inner">
+        <a href="#home" class="brand">
+          <span class="brand-mark">P</span>
+          <div>
+            <strong>PlagiGuard</strong>
+            <small>AI Plagiarism Checker</small>
+          </div>
+        </a>
+        <nav class="navbar" aria-label="Primary navigation">
+          <button class="nav-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+          <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <button class="btn btn-outline">Login</button>
+          <button class="btn btn-primary">Get Premium</button>
+          <button class="btn btn-ghost" id="darkModeToggle" aria-label="Toggle dark mode">Dark</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="hero-section">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">AI Plagiarism Checker</span>
+            <h1 class="hero-title">Detect Duplicate Content Instantly</h1>
+            <p class="hero-text">Ensure your content is original, authentic, and ready for publication with our advanced AI-powered plagiarism detection system.</p>
+            <p class="hero-text">PlagiGuard helps students, writers, bloggers, and professionals scan their content for plagiarism, detect duplicate text, and generate detailed originality reports within seconds.</p>
+            <div class="hero-stat">
+              <div>
+                <strong id="wordCount">0</strong>
+                <span>Words</span>
+              </div>
+              <div>
+                <strong id="charCount">0</strong>
+                <span>Characters</span>
+              </div>
+            </div>
+            <div class="hero-buttons">
+              <button type="button" class="btn btn-primary" id="heroCheckBtn">Check Now</button>
+              <button type="button" class="btn btn-outline" id="learnMoreBtn">Learn More</button>
+            </div>
+          </div>
+
+          <div class="hero-card glass-card" id="checker">
+            <div class="card-header">
+              <div>
+                <h2>Paste Your Content Below</h2>
+                <p>Paste your text and start your plagiarism scan quickly.</p>
+              </div>
+            </div>
+            <div class="input-card">
+            <textarea id="inputText" placeholder="Paste your text here (minimum 30 characters)... Our neural engine will analyze linguistic patterns across the entire web."></textarea>
+            <div class="action-bar" style="display: flex; justify-content: center; margin-top: 1.5rem;">
+                <button class="btn btn-primary" id="scanBtn" onclick="startScan()" style="width: 240px; font-weight: 700; font-size: 1.1rem; padding: 1.2rem;">
+                    <span id="btnText">Analyze</span>
+                </button>
+            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <button class="btn btn-outline" id="clearBtn" style="background: transparent; border: 1px solid var(--border); padding: 0.5rem 1.5rem; width: auto; font-size: 0.9rem;">Clear Editor</button>
+            </div>
+        </div>
+            <div class="loader-panel hidden" id="loaderPanel">
+              <div class="spinner"></div>
+              <div class="loader-steps" id="loaderSteps">
+                <p>Scanning your content...</p>
+              </div>
+            </div>
+            <div class="result-panel hidden" id="resultPanel">
+              <h3>Plagiarism Analysis Report</h3>
+              <div class="result-meta">
+                <span id="activeTool">Active Tool: Plagiarism Checker</span>
+              </div>
+              <div class="result-summary">
+                <div>
+                  <h4>Originality Score</h4>
+                  <strong id="originalityScore">0%</strong>
+                </div>
+                <div>
+                  <h4>Duplicate Content</h4>
+                  <strong id="duplicateScore">0%</strong>
+                </div>
+              </div>
+              <div class="result-details">
+                <div><strong>Risk Level:</strong> <span id="riskLevel">Unknown</span></div>
+                <div><strong>Scan Status:</strong> <span id="scanStatus">Pending</span></div>
+                <p id="resultDescription" class="result-description">Your results will appear here after the scan completes.</p>
+              </div>
+              <div class="progress-ring">
+                <svg viewBox="0 0 120 120">
+                  <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+                  <circle class="ring" cx="60" cy="60" r="52"></circle>
+                </svg>
+                <span id="ringText">0%</span>
+              </div>
+              <div class="source-list">
+                <h4>Matched Sources</h4>
+                <ul id="sourceList"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <span id="features"></span>
+      <section id="tools" class="section split-section">
+        <div class="container section-grid">
+          <aside class="sidebar glass-card">
+            <h3>TOOLS</h3>
+            <ul class="tool-list">
+              <li class="active">✓ Plagiarism Checker</li>
+              <li>✓ Grammar Checker</li>
+              <li>✓ Word Counter</li>
+              <li>✓ Reverse Image Search</li>
+              <li>✓ AI Detector</li>
+              <li>✓ Backlink Checker</li>
+            </ul>
+          </aside>
+          <div class="section-content glass-card">
+            <h3>Why Choose PlagiGuard</h3>
+            <p>PlagiGuard gives you fast, secure, and intelligent analysis so you can publish with confidence.</p>
+            <div class="feature-grid small-grid">
+              <article class="feature-card">
+                <strong>Fast Scanning</strong>
+                <p>Scan large content files within seconds using optimized analysis algorithms.</p>
+              </article>
+              <article class="feature-card">
+                <strong>Detailed Reports</strong>
+                <p>Get complete originality insights with percentage-based results.</p>
+              </article>
+              <article class="feature-card">
+                <strong>AI Detection</strong>
+                <p>Identify AI-generated patterns in written content.</p>
+              </article>
+              <article class="feature-card">
+                <strong>Secure Processing</strong>
+                <p>Your uploaded data is encrypted and never stored permanently.</p>
+              </article>
+              <article class="feature-card">
+                <strong>Multi-Format Support</strong>
+                <p>Supports TXT, DOC, DOCX, and PDF files.</p>
+              </article>
+              <article class="feature-card">
+                <strong>Smart Suggestions</strong>
+                <p>Receive recommendations to improve content originality.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section pricing" id="pricing">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Pricing Plans</span>
+            <h2>Choose Your Plan</h2>
+          </div>
+          <div class="pricing-grid">
+            <article class="price-card">
+              <h3>Free Plan</h3>
+              <p>$0 / month</p>
+              <strong>Includes:</strong>
+              <ul>
+                <li>5 scans daily</li>
+                <li>1000 words per scan</li>
+                <li>Basic reports</li>
+                <li>Limited source checking</li>
+              </ul>
+              <button class="btn btn-outline">Start Free</button>
+            </article>
+            <article class="price-card featured">
+              <h3>Pro Plan</h3>
+              <p>$9 / month</p>
+              <strong>Includes:</strong>
+              <ul>
+                <li>Unlimited scans</li>
+                <li>10,000 words per scan</li>
+                <li>Advanced reports</li>
+                <li>AI detection</li>
+                <li>Priority support</li>
+              </ul>
+              <button class="btn btn-primary">Go Pro</button>
+            </article>
+            <article class="price-card">
+              <h3>Business Plan</h3>
+              <p>$25 / month</p>
+              <strong>Includes:</strong>
+              <ul>
+                <li>Team access</li>
+                <li>API integration</li>
+                <li>Bulk scanning</li>
+                <li>Enterprise reports</li>
+              </ul>
+              <button class="btn btn-outline">Contact Sales</button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section testimonials">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">What Users Say</span>
+            <h2>What Users Say</h2>
+          </div>
+          <div class="slider" id="testimonialSlider">
+            <article class="testimonial-card active">
+              <p>★★★★★</p>
+              <p>PlagiGuard helped me verify my university assignments quickly and accurately.</p>
+              <strong>— Sarah M.</strong>
+            </article>
+            <article class="testimonial-card">
+              <p>★★★★★</p>
+              <p>The interface is clean, fast, and extremely easy to use.</p>
+              <strong>— James K.</strong>
+            </article>
+            <article class="testimonial-card">
+              <p>★★★★★</p>
+              <p>A reliable plagiarism checker for bloggers and content creators.</p>
+              <strong>— David R.</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section faq" id="faq">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">FAQ</span>
+            <h2>Frequently asked questions</h2>
+          </div>
+          <div class="accordion">
+            <div class="accordion-item">
+              <button class="accordion-button">How accurate is PlagiGuard?</button>
+              <div class="accordion-panel"><p>PlagiGuard uses advanced scanning algorithms to deliver highly reliable originality reports.</p></div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-button">Is my content stored?</button>
+              <div class="accordion-panel"><p>No. All uploaded content is processed securely and deleted automatically.</p></div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-button">Can I upload documents?</button>
+              <div class="accordion-panel"><p>Yes. PDF, DOC, DOCX, and TXT formats are supported.</p></div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-button">How long does scanning take?</button>
+              <div class="accordion-panel"><p>Most scans are completed within 5–10 seconds.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how-it-works">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">How PlagiGuard Works</span>
+            <h2>How PlagiGuard Works</h2>
+          </div>
+          <div class="feature-grid small-grid">
+            <article class="feature-card">
+              <strong>Paste or Upload Content</strong>
+              <p>Insert your text or upload your document.</p>
+            </article>
+            <article class="feature-card">
+              <strong>Run Analysis</strong>
+              <p>Our engine scans and compares your content.</p>
+            </article>
+            <article class="feature-card">
+              <strong>View Detailed Report</strong>
+              <p>Receive instant plagiarism results with originality score.</p>
+            </article>
+            <article class="feature-card">
+              <strong>Improve Your Content</strong>
+              <p>Rewrite duplicated areas and recheck instantly.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">About PlagiGuard</span>
+            <h2>About PlagiGuard</h2>
+          </div>
+          <div class="feature-card glass-card">
+            <p>PlagiGuard is designed to help writers, students, and professionals create original content with confidence.</p>
+            <p>Our mission is to simplify plagiarism detection through intelligent technology and a user-friendly experience.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Get in Touch</span>
+            <h2>Get in Touch</h2>
+          </div>
+          <div class="feature-grid small-grid">
+            <article class="feature-card">
+              <strong>Email</strong>
+              <p>support@plagiguard.com</p>
+            </article>
+            <article class="feature-card">
+              <strong>Phone</strong>
+              <p>+1 800 123 4567</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer section">
+      <div class="container footer-grid">
+        <header>
+        <h1>NeuralGuard</h1>
+        <p>Premium Text-Only Plagiarism Intelligence — Internet-Scale Scanning</p>
+    </header>
+        <div class="footer-links">
+          <div>
+            <h4>Links</h4>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Service</a>
+            <a href="#help">Help Center</a>
+            <a href="#contact">Support</a>
+          </div>
+          <div>
+            <h4>Social</h4>
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Instagram</a>
+          </div>
+        </div>
+        <form class="newsletter-form">
+          <label>Stay Updated</label>
+          <div class="newsletter-field">
+            <input type="email" placeholder="Enter your email" />
+            <button class="btn btn-primary">Subscribe</button>
+          </div>
+        </form>
+      </div>
+      <p class="footer-note">© 2026 PlagiGuard. Built for smart content checking.</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
